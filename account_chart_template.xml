@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+        <record id="l10n_ua_account_chart_template" model="account.chart.template">
+            <field name="name">План счетов Украины</field>
+            <field name="code_digits" eval="2"/>
+        </record>
+
+        <record id="l10n_ua_account_chart_template_value" model="ir.values">
+            <field name="name">План счетов Украины</field>
+            <field name="model">account.chart.template</field>
+            <field name="key">default</field>
+            <field name="res_id" ref="l10n_ua_account_chart_template"/>
+            <field name="value" ref="base.UAH"/>
+        </record>
+
+    </data>
+</openerp>

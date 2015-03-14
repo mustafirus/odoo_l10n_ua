@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- account.account.type -->
+        <record id="user_type_view" model="account.account.type">
+            <field name="name">Вид</field>
+            <field name="code">view</field>
+            <field name="close_method">none</field>
+        </record>
+
+        <!-- Asset -->
+
+        <record id="user_type_current_asset" model="account.account.type">
+            <field name="name">Оборотные активы</field>
+            <field name="code">current asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_cash" model="account.account.type">
+            <field name="name">Касса</field>
+            <field name="code">cash</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_account_receivable" model="account.account.type">
+            <field name="name">Клиенты</field>
+            <field name="code">account rec</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_other_current_asset" model="account.account.type">
+            <field name="name">Другие активы</field>
+            <field name="code">other -current asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_fixed_asset" model="account.account.type">
+            <field name="name">Основные средства</field>
+            <field name="code">fixed asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_accumulated_depreciation" model="account.account.type">
+            <field name="name">Износ(аммортизация)</field>
+            <field name="code">Accumulated Depreciation</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>        
+        <record id="user_type_other_asset" model="account.account.type">
+            <field name="name">Other Asset</field>
+            <field name="code">other -asset</field>
+            <field name="report_type">asset</field>
+            <field name="close_method">balance</field>
+        </record>
+
+        <!-- liability -->
+        <record id="user_type_account_payable" model="account.account.type">
+            <field name="name">Поставщики</field>
+            <field name="code">account -pay</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">unreconciled</field>
+        </record>
+        <record id="user_type_credit_card" model="account.account.type">
+            <field name="name">Credit Card</field>
+            <field name="code">credit -card</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_current_liability" model="account.account.type">
+            <field name="name">Текущие обязательства</field>
+            <field name="code">current -liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_other_current_liability" model="account.account.type">
+            <field name="name">Другие обязательства</field>
+            <field name="code">other current -liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_long_term_liability" model="account.account.type">
+            <field name="name">Долгосрочные обязaтельства</field>
+            <field name="code">long term -liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <record id="user_type_liability" model="account.account.type">
+            <field name="name">Обязaтельства</field>
+            <field name="code">liability</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+        <!-- Equity -->
+        <record id="user_type_equity" model="account.account.type">
+            <field name="name">Собствeнный капитал</field>
+            <field name="code">equity</field>
+            <field name="report_type">liability</field>
+            <field name="close_method">balance</field>
+        </record>
+
+        <!-- Income -->
+        <record id="user_type_income" model="account.account.type">
+            <field name="name">Доходы</field>
+            <field name="code">income</field>
+            <field name="report_type">income</field>
+            <field name="close_method">none</field>
+        </record>
+        <record id="user_type_other_income" model="account.account.type">
+            <field name="name">Другие доходы</field>
+            <field name="code">other -income</field>
+            <field name="report_type">income</field>
+            <field name="close_method">none</field>
+        </record>
+
+        <!-- Expense -->  
+        <record id="user_type_expense" model="account.account.type">
+            <field name="name">Расходы</field>
+            <field name="code">expense</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+        <record id="user_type_other_expense" model="account.account.type">
+            <field name="name">Другие расходы</field>
+            <field name="code">other -expense</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+
+        <record id="user_type_cogs" model="account.account.type">
+            <field name="name">Себестоимость</field>
+            <field name="code">cogs</field>
+            <field name="report_type">expense</field>
+            <field name="close_method">none</field>
+        </record>
+
+    </data>
+</openerp>
