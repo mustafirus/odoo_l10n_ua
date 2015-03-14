@@ -21,7 +21,7 @@
 {
     'name': 'Ukraine - Chart of accounts',
     'version': '0.2',
-    'author': 'NT',
+    'author': 'golubev',
     'category': 'Localization/Account Charts',
     'description': """
 Ukraine - Chart of accounts.
