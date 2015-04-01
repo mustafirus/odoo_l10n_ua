@@ -34,7 +34,8 @@ Ukraine - Chart of accounts.
         'account_chart_template.xml',
         'account.account.template.csv',
         'account_chart_template_after.xml',
-        'l10n_ua_wizard.xml'
+        'l10n_ua_wizard.xml',
+        'report_invoice.xml'
     ],
     'demo': [],
     'test': [],
