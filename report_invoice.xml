@@ -6,7 +6,7 @@
     id="ua_invoices_rah"
     model="account.invoice"
     string="Рахунок"
-    report_type="qweb-pdf"
+    report_type="qweb-html"
     name="l10n_ua.report_invoice_rah"
     file="l10n_ua.report_invoice_rah"
     attachment_use="True"
@@ -25,46 +25,77 @@
 />
 
 <template id="report_invoice_rah_document">
-    <t t-call="report.external_layout">
-        <div class="page">
-            <div class="row">
-                <div class="col-xs-5 col-xs-offset-7">
-                    <address t-field="o.partner_id"
-                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
-                    <span t-field="o.partner_id.vat"/>
+
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-3">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 45px;"/>
+            </div>
+            <div class="col-xs-9 text-right" style="margin-top:20px;" t-field="company.rml_header1"/>
+        </div>
+        <div class="row zero_min_height">
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-5">
+                <span><strong>ПОСТАЧАЛЬНИК</strong></span>
+                <div t-field="company.partner_id" 
+                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "email"], "no_marker": false}'
+                    style="border-bottom: 1px solid black;"/>
+                <div> Р/р <span t-field="o.partner_bank_id.acc_number"/> в <span t-field="o.partner_bank_id.bank_name"/> <br/>
+                      МФО: <span t-field="o.partner_bank_id.bank_bic"/>
                 </div>
             </div>
+            <div class="col-xs-5 col-xs-offset-2">
+                <span><strong>ЗАМОВНИК</strong></span>
+                <address t-field="o.partner_id"
+                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "email"], "no_marker": true}'
+                    style="border-bottom: 1px solid black;"/>
+                <span t-field="o.partner_id.vat"/>
+            </div>
+        </div>
+    </div>
+        <div class="page">
 
             <h2>
                 <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Рахунок</span>
                 <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
-                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Чернетка рахунка</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Чернетка рахунку</span>
                 <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice1</span>
                 <span t-if="o.type == 'out_refund'">Refund</span>
                 <span t-if="o.type == 'in_refund'">Supplier Refund</span>
-                <span t-if="o.type == 'in_invoice'">Supplier Invoice1</span>
+                <span t-if="o.type == 'in_invoice'">Рахунок постачальника</span>
                 <span t-field="o.number"/>
             </h2>
 
             <div class="row mt32 mb32">
                 <div class="col-xs-2" t-if="o.name">
-                    <strong>Description:</strong>
+                    <strong>Опис:</strong>
                     <p t-field="o.name"/>
                 </div>
                 <div class="col-xs-2" t-if="o.date_invoice">
-                    <strong>Invoice Date:</strong>
+                    <strong>Дата:</strong>
                     <p t-field="o.date_invoice"/>
                 </div>
                 <div class="col-xs-2" t-if="o.origin">
-                    <strong>Source:</strong>
+                    <strong>Договір/Замовлення:</strong>
                     <p t-field="o.origin"/>
                 </div>
                 <div class="col-xs-2" t-if="o.partner_id.ref">
-                    <strong>Customer Code:</strong>
+                    <strong>Код замовника:</strong>
                     <p t-field="o.partner_id.ref"/>
                 </div>
                 <div class="col-xs-2" t-if="o.reference">
-                    <strong>Reference:</strong>
+                    <strong>Посилання:</strong>
                     <p t-field="o.reference"/>
                 </div>
             </div>
@@ -72,12 +103,12 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th class="text-right">Unit Price</th>
-                        <th class="text-right" groups="sale.group_discount_per_so_line">Discount (%)</th>
-                        <th class="text-right">Taxes</th>
-                        <th class="text-right">Amount</th>
+                        <th>Товари(роботи, послуги)</th>
+                        <th>Кількість</th>
+                        <th class="text-right">Ціна</th>
+                        <th class="text-right" groups="sale.group_discount_per_so_line">Знижка (%)</th>
+                        <th class="text-right">ПДВ</th>
+                        <th class="text-right">Сума</th>
                     </tr>
                 </thead>
                 <tbody class="invoice_tbody">
@@ -106,19 +137,19 @@
                 <div class="col-xs-4 pull-right">
                     <table class="table table-condensed">
                         <tr class="border-black">
-                            <td><strong>Total Without Taxes</strong></td>
+                            <td><strong>Всього без ПДВ</strong></td>
                             <td class="text-right">
                                 <span t-field="o.amount_untaxed" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
                             </td>
                         </tr>
                         <tr>
-                            <td>Taxes</td>
+                            <td>ПДВ</td>
                             <td class="text-right">
                                 <span t-field="o.amount_tax" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
                             </td>
                         </tr>
                         <tr class="border-black">
-                            <td><strong>Total</strong></td>
+                            <td><strong>Всього з ПДВ</strong></td>
                             <td class="text-right">
                                  <span t-field="o.amount_total" t-field-options='{"widget": "monetary", "display_currency": "o.currency_id"}'/>
                             </td>
@@ -155,11 +186,11 @@
             </div>
 
             <p t-if="o.comment">
-                <strong>Comment:</strong>
+                <strong>Коментар:</strong>
                 <span t-field="o.comment"/>
             </p>
             <p t-if="o.payment_term.note">
-                <strong>Payment Term:</strong>
+                <strong>Строк оплати:</strong>
                 <span t-field="o.payment_term.note"/>
             </p>
             <p t-if="o.fiscal_position.note">
@@ -167,7 +198,10 @@
                 <span t-field="o.fiscal_position.note"/>
             </p>
         </div>
-    </t>
+        <div class="col-xs-3 col-xs-offset-9"><br/><br/><br/>
+                <span><strong>Виписав(ла)</strong>__________________________</span>
+        </div>
+
 </template>
 
 <template id="report_invoice_act_document">
