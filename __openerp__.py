@@ -20,7 +20,7 @@
 ##############################################################################
 {
     'name': 'Ukraine - Chart of accounts',
-    'version': '0.2',
+    'version': '1.2',
     'author': 'golubev',
     'category': 'Localization/Account Charts',
     'description': """
