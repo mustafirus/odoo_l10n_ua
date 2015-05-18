@@ -198,7 +198,7 @@
                 <span t-field="o.fiscal_position.note"/>
             </p>
             <p class="col-xs-4 col-xs-offset-8"><br/><br/><br/>
-                <span><strong>Виписав(ла)</strong>__________________________</span>
+                <span><strong>Виписав(ла)</strong>__________________</span>
             </p>
         </div>
 
