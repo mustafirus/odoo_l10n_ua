@@ -197,7 +197,7 @@
                 <strong>Fiscal Position Remark:</strong>
                 <span t-field="o.fiscal_position.note"/>
             </p>
-            <p class="col-xs-3 col-xs-offset-9"><br/><br/><br/>
+            <p class="col-xs-4 col-xs-offset-8"><br/><br/><br/>
                 <span><strong>Виписав(ла)</strong>__________________________</span>
             </p>
         </div>
