@@ -360,6 +360,9 @@
             </div>
 
         <div class="row">
+        Місце складання: м. Київ
+        </div>
+        <div class="row">
             <div class="col-xs-5">
                 <div>
                     <span><strong>Від Виконавця</strong></span><br/>
@@ -370,6 +373,7 @@
                 </div>
                 <div t-field="company.partner_id" 
                     t-field-options='{"widget": "contact", "fields": ["address", "name", "phone", "email"], "no_marker": true}' />
+                ЕДРПО <span t-field="company.company_registry"/>
             </div>
             <div class="col-xs-5 col-xs-offset-2">
                 <div>
